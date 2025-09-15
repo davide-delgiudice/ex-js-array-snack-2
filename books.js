@@ -134,31 +134,48 @@ const books = [
 
 // snack 5 (bonus)
 
-const ids = [2, 13, 7, 21, 19]
+// const ids = [2, 13, 7, 21, 19]
 
-async function fetchjson(url) { 
-    const response = await fetch(url); 
-    const obj = await response.json(); 
-    return obj; 
-};
+// async function fetchjson(url) { 
+//     const response = await fetch(url); 
+//     const obj = await response.json(); 
+//     return obj; 
+// };
 
-async function getBooks(ids) {
-    try{
-        const bookPromises = ids.map(id => {
-            return fetchjson(`${API_URL}/books/${id}`)
-        });
+// async function getBooks(ids) {
+//     try{
+//         const bookPromises = ids.map(id => {
+//             return fetchjson(`${API_URL}/books/${id}`)
+//         });
     
-        const books = await Promise.all(bookPromises);
-        return books;
-    }catch(error){
-        throw new Error(`Errore nel recupero dei dati: ${error.message}`)
-    };
-};
+//         const books = await Promise.all(bookPromises);
+//         return books;
+//     }catch(error){
+//         throw new Error(`Errore nel recupero dei dati: ${error.message}`)
+//     };
+// };
 
-getBooks([2, 13, 7, 21, 19])
-.then((books) => {
-    console.log(books);
-})
-.catch((error) => {
-    console.error('Errore nella chiamata getBooks:', error.message);
+// getBooks([2, 13, 7, 21, 19])
+// .then((books) => {
+//     console.log(books);
+// })
+// .catch((error) => {
+//     console.error('Errore nella chiamata getBooks:', error.message);
+// });
+
+
+// snack 6 (bonus)
+
+const areThereAvailableBooks = books.some((book) => {
+    return book.available;
 });
+
+console.log(areThereAvailableBooks);
+
+const booksByPrice = [...books].sort((a, b) => {
+    const priceA = parseFloat(a.price);
+    const priceB = parseFloat(b.price);
+    return priceA - priceB;
+});
+
+booksByPrice.sort((a, b) => a.available === b.available ? 0 : a.available ? -1 : 1)

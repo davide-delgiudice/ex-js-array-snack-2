@@ -1,3 +1,5 @@
+const API_URL = "http://localhost:3333";
+
 const books = [
   { 
 	  title: "React Billionaire", 
@@ -115,16 +117,48 @@ const books = [
 
 
 // snack 4
-const ages = books.map((author) => {
-    const authors = author.author;
-    const age = authors.age
-    return age;
+// const ages = books.map((author) => {
+//     const authors = author.author;
+//     const age = authors.age
+//     return age;
+// });
+
+// console.log(ages);
+
+// const agesSum = ages.reduce((acc, curr) => {
+//     return acc + curr;
+// }, 0);
+
+// console.log(agesSum / ages.length);
+
+
+// snack 5 (bonus)
+
+const ids = [2, 13, 7, 21, 19]
+
+async function fetchjson(url) { 
+    const response = await fetch(url); 
+    const obj = await response.json(); 
+    return obj; 
+};
+
+async function getBooks(ids) {
+    try{
+        const bookPromises = ids.map(id => {
+            return fetchjson(`${API_URL}/books/${id}`)
+        });
+    
+        const books = await Promise.all(bookPromises);
+        return books;
+    }catch(error){
+        throw new Error(`Errore nel recupero dei dati: ${error.message}`)
+    };
+};
+
+getBooks([2, 13, 7, 21, 19])
+.then((books) => {
+    console.log(books);
+})
+.catch((error) => {
+    console.error('Errore nella chiamata getBooks:', error.message);
 });
-
-console.log(ages);
-
-const agesSum = ages.reduce((acc, curr) => {
-    return acc + curr;
-}, 0);
-
-console.log(agesSum / ages.length);

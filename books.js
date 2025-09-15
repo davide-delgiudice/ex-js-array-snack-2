@@ -64,27 +64,51 @@ const books = [
 
 
 // snack 2
-const availableBooks = books.filter((book) => {
-    return book.available;
+// const availableBooks = books.filter((book) => {
+//     return book.available;
+// });
+
+// console.log(availableBooks);
+
+// const discountedBooks = availableBooks.map((discountBook) => {
+//     const priceNumber = parseFloat(discountBook.price);
+//     const discountPrice = priceNumber * 0.8;
+//     const roundedPrice = discountPrice.toFixed(2)+'€';
+//     return {
+//         ...discountBook,
+//         price: roundedPrice
+//     };
+// });
+
+// console.log(discountedBooks);
+
+// const fullPricedBook = discountedBooks.find((fullPriceBook) => {
+//     const priceNumber = parseFloat(fullPriceBook.price);
+//     return Number.isInteger(priceNumber);
+// });
+
+// console.log(fullPricedBook)
+
+
+// snack 3
+const authors = books.map((author) => {
+    return author.author;
+})
+
+console.log(authors);
+
+const areAuthorsAdult = authors.every((adult) => {
+    return adult.age > 18;
 });
 
-console.log(availableBooks);
+console.log(areAuthorsAdult);
 
-const discountedBooks = availableBooks.map((discountBook) => {
-    const priceNumber = parseFloat(discountBook.price);
-    const discountPrice = priceNumber * 0.8;
-    const roundedPrice = discountPrice.toFixed(2)+'€';
-    return {
-        ...discountBook,
-        price: roundedPrice
-    };
-});
-
-console.log(discountedBooks);
-
-const fullPricedBook = discountedBooks.find((fullPriceBook) => {
-    const priceNumber = parseFloat(fullPriceBook.price);
-    return Number.isInteger(priceNumber);
-});
-
-console.log(fullPricedBook)
+if(areAuthorsAdult) {
+    authors.sort((a, b) => {
+        return a.age - b.age;
+    });
+}else{
+    authors.sort((a, b) => {
+        return b.age - a.age;
+    });
+};

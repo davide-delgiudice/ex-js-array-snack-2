@@ -166,16 +166,32 @@ const books = [
 
 // snack 6 (bonus)
 
-const areThereAvailableBooks = books.some((book) => {
-    return book.available;
-});
+// const areThereAvailableBooks = books.some((book) => {
+//     return book.available;
+// });
 
-console.log(areThereAvailableBooks);
+// console.log(areThereAvailableBooks);
 
-const booksByPrice = [...books].sort((a, b) => {
-    const priceA = parseFloat(a.price);
-    const priceB = parseFloat(b.price);
-    return priceA - priceB;
-});
+// const booksByPrice = [...books].sort((a, b) => {
+//     const priceA = parseFloat(a.price);
+//     const priceB = parseFloat(b.price);
+//     return priceA - priceB;
+// });
 
-booksByPrice.sort((a, b) => a.available === b.available ? 0 : a.available ? -1 : 1)
+// booksByPrice.sort((a, b) => a.available === b.available ? 0 : a.available ? -1 : 1)
+
+
+// snack 7
+
+const tagCounts = books.reduce((acc, book) => {
+    book.tags.forEach(tag => {
+        if(acc[tag]) {
+            acc[tag]++;
+        }else{
+            acc[tag] = 1;
+        }
+    });
+    return acc;
+}, {});
+
+console.log(tagCounts);

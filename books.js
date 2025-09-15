@@ -46,18 +46,45 @@ const books = [
 ];
 
 // snack 1
-const longBooks = books.filter((book) => {
-    return book.pages > 300;
+// const longBooks = books.filter((book) => {
+//     return book.pages > 300;
+// });
+
+// console.log(longBooks);
+
+// const longBooksTitle = longBooks.map((longBook) => {
+//     return longBook.title;
+// });
+
+// console.log(longBooksTitle);
+
+// books.forEach((book) => {
+//     console.log(book.title);
+// });
+
+
+// snack 2
+const availableBooks = books.filter((book) => {
+    return book.available;
 });
 
-console.log(longBooks);
+console.log(availableBooks);
 
-const longBooksTitle = longBooks.map((longBook) => {
-    return longBook.title;
+const discountedBooks = availableBooks.map((discountBook) => {
+    const priceNumber = parseFloat(discountBook.price);
+    const discountPrice = priceNumber * 0.8;
+    const roundedPrice = discountPrice.toFixed(2)+'€';
+    return {
+        ...discountBook,
+        price: roundedPrice
+    };
 });
 
-console.log(longBooksTitle);
+console.log(discountedBooks);
 
-books.forEach((book) => {
-    console.log(book.title);
+const fullPricedBook = discountedBooks.find((fullPriceBook) => {
+    const priceNumber = parseFloat(fullPriceBook.price);
+    return Number.isInteger(priceNumber);
 });
+
+console.log(fullPricedBook)
